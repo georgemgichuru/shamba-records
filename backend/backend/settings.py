@@ -98,7 +98,7 @@ WSGI_APPLICATION = 'backend.wsgi.app'
 # Custom user model
 # NOTE: label must match the AppConfig.name / app label in accounts/apps.py
 # ---------------------------------------------------------------------------
-AUTH_USER_MODEL = 'accounts.User'
+AUTH_USER_MODEL = 'custom_auth.User'  # match the actual app label
 
 # ---------------------------------------------------------------------------
 # Database
