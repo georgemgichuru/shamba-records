@@ -15,11 +15,18 @@ class DashboardSummaryView(APIView):
 
         total_fields = fields.count()
         status_breakdown = {'Active': 0, 'At Risk': 0, 'Completed': 0}
+        
+        at_risk_fields = []
 
         for field in fields:
             s = field.computed_status
-            if s in status_breakdown:
-                status_breakdown[s] += 1
+            if 'Completed' in s:
+                status_breakdown['Completed'] += 1
+            elif 'Risk' in s or 'Urgent' in s or 'Warning' in s:
+                status_breakdown['At Risk'] += 1
+                at_risk_fields.append(field.id)
+            else:
+                status_breakdown['Active'] += 1
 
         stage_breakdown = {
             stage: fields.filter(current_stage=stage).count()
@@ -28,7 +35,6 @@ class DashboardSummaryView(APIView):
 
         # Recent activity: last 5 harvested
         recently_harvested = fields.filter(current_stage='Harvested').count()
-        at_risk_fields = [f.id for f in fields if f.computed_status == 'At Risk']
 
         return Response({
             'total_fields': total_fields,
