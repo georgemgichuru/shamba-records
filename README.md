@@ -35,4 +35,4 @@ npm run dev
 - **Location:** Since agents are likely out in the field on their phones, the location field is just flexible text. It accepts plain text like "North Paddock" or simple GPS coordinates so they aren't forced to use a clunky map picker.
 
 ## What's Next?
-If I had more time, I think it would be really cool to add some machine learning—like predicting exact harvest dates based on the crop type and size, or auto-detecting anomalies in growth time from historical data.
+If I had more time, I think it would be really cool to add some machine learning like predicting exact harvest dates based on the crop type and size, or auto-detecting anomalies in growth time from historical data.
