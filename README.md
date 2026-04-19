@@ -1,25 +1,38 @@
-# Shamba Records Field Management System
+# SmartSeason Field Management
 
-## Field Status Determination Logic
+Hey! This is my submission for the Shamba Records Software Internship. It's a field management dashboard built with Django and React, designed to help track crops, manage field agents, and automatically flag fields that might be falling behind schedule.
 
-The `Field` model tracks both a manually updated `current_stage` (Planted, Growing, Ready, Harvested) and an automatically derived `computed_status`. The logic implemented for deriving the status provides an intelligent assessment of the field's health and operational urgency rather than merely repeating the stage.
+## Demo Credentials
+- **Username:** `ggichuru`
+- **Password:** `Mw@ngi2006`
 
-### Approach Details:
-1. **Completed**: If the stage is "Harvested", the field's status immediately resolves to "Completed".
-2. **Stage-based Timeline Tracking**:
-   - If a field remains in the "Planted" stage for unusually long (e.g., > 30 days) without transitioning to "Growing", its status becomes "At Risk (Delayed Growth)".
-   - If it stays in "Growing" for too long (e.g., > 90 days), it's flagged as "At Risk (Prolonged Growth)".
-3. **Harvest Target Proximity**: 
-   - If the `expected_harvest_date` passes and it's not yet "Ready", it indicates "At Risk (Delayed Maturity)".
-   - If it is "Ready" but past the target harvest date, it becomes "Urgent (Harvest Overdue)".
-   - If the expected harvest date is fast approaching (within 7 days) but the crop hasn't been updated to "Ready", it flags as a "Warning (Approaching Harvest, not Ready)".
-4. **General Default**: Otherwise, fields progress actively from "Active / On Track" to "Action Required (Ready to Harvest)".
+## How to Run It
 
-This robust logic ensures that agricultural supervisors can easily identify fields that are falling behind schedule or require immediate attention without manual intervention.
+### The Backend
+I used Django for the API. To get it running locally:
+```bash
+cd backend
+python -m venv venv
+# Windows: venv\Scripts\activate | Mac/Linux: source venv/bin/activate
+pip install -r requirements.txt
+python manage.py migrate
+python populate_dummy_data.py # this generates some test data and roles
+python manage.py runserver
+```
 
-## Future Enhancements: Machine Learning Integration
+### The Frontend
+I used a React template (CoreUI) and cleaned it up with Lucide icons for a better look.
+```bash
+cd coreui-free-react-admin-template
+npm install
+npm run dev
+```
 
-The current rule-based approach can be significantly enhanced in the future by incorporating simple Machine Learning (ML):
-- **Predictive Harvest Dates**: A supervised ML model (like Random Forest or XGBoost) could predict the `expected_harvest_date` dynamically by learning from historical planting-to-harvest periods across different crop types, seasons, and region data.
-- **Anomaly Detection (Stage Progression)**: Instead of hard-coding the "30 days" or "90 days" thresholds, a simple anomaly detection algorithm (like Isolation Forest) could flag fields whose stage duration deviates from the norm for their specific crop type and location.
-- **Yield Prediction**: Using the field's `area_hectares` and historical data of similar growth cycles, simple linear regression can provide automated yield estimations once a field hits the "Growing" or "Ready" stage.
+## A Few Notes on How It Works
+
+- **Access:** Admins can see and assign everything. Field agents get a simpler "My Fields" view showing only what's assigned to them.
+- **Smart Statuses:** I didn't want users to have to manually mark a crop as "At Risk". Instead, the backend compares the crop's current stage (Planted, Growing, etc.) with its planting date and expected harvest date. If it's been in a stage for way too long without progressing, or if it's past the target harvest time, it automatically flags it as at-risk or urgent.
+- **Location:** Since agents are likely out in the field on their phones, the location field is just flexible text. It accepts plain text like "North Paddock" or simple GPS coordinates so they aren't forced to use a clunky map picker.
+
+## What's Next?
+If I had more time, I think it would be really cool to add some machine learning—like predicting exact harvest dates based on the crop type and size, or auto-detecting anomalies in growth time from historical data.
