@@ -1,0 +1,13 @@
+{
+  "name": "shamba-records",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "cd coreui-free-react-admin-template && npm install && npm run build",
+    "dev": "cd coreui-free-react-admin-template && npm run dev",
+    "lint": "cd coreui-free-react-admin-template && npm run lint"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

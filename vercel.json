@@ -1,7 +1,13 @@
 {
-  "buildCommand": "cd coreui-free-react-admin-template && npm install && npm run build",
-  "outputDirectory": "coreui-free-react-admin-template/build",
-  "devCommand": "cd coreui-free-react-admin-template && npm run dev",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "coreui-free-react-admin-template/build"
+      }
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",
