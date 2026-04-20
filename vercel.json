@@ -1,5 +1,4 @@
 {
-  "version": 2,
   "builds": [
     {
       "src": "coreui-free-react-admin-template/package.json",
@@ -7,32 +6,7 @@
       "config": {
         "distDir": "build"
       }
-    },
-    {
-      "src": "backend/backend/wsgi.py",
-      "use": "@vercel/python",
-      "config": {
-        "maxLambdaSize": "15mb",
-        "runtime": "python3.12"
-      }
     }
   ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "backend/backend/wsgi.py"
-    },
-    {
-      "src": "/admin/(.*)",
-      "dest": "backend/backend/wsgi.py"
-    },
-    {
-      "src": "/static/(.*)",
-      "dest": "/static/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/coreui-free-react-admin-template/$1"
-    }
-  ]
+  "outputDirectory": "coreui-free-react-admin-template/build"
 }
