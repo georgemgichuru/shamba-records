@@ -39,7 +39,8 @@ class RegisterView(APIView):
 
         # Non-admin callers (including anonymous) can only register as 'agent'
         if not caller_is_admin:
-            data['role'] = 'agent'
+            if data.get('role') != 'agent':
+                 data['role'] = 'agent'
 
         serializer = RegisterSerializer(data=data)
         if serializer.is_valid():
