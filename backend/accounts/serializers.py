@@ -5,8 +5,7 @@ Key additions vs the original:
 - CustomTokenObtainPairSerializer: embeds role, username, full_name in JWT claims
   so the frontend can decode the token and know the user's role immediately,
   without a separate profile API call.
-- RegisterSerializer: now validates password confirmation and enforces that
-  only authenticated admins may set role='admin'.
+- RegisterSerializer: validates password (client handles confirmation).
 - UserSerializer: `role` is read-only for agents (enforced in the view layer via
   IsSelfOrAdmin + partial=True; changing role requires admin PATCH).
 """
@@ -72,26 +71,24 @@ class RegisterSerializer(serializers.ModelSerializer):
     2. The admin UserManagement panel — role can be set freely.
 
     The view is responsible for enforcing who can set role='admin'.
+    Password confirmation handled client-side; optional server check if sent.
     """
     password = serializers.CharField(write_only=True, min_length=8)
-    password_confirm = serializers.CharField(write_only=True)
-
     role = serializers.ChoiceField(choices=User.ROLE_CHOICES, default='agent')
 
     class Meta:
         model = User
         fields = [
-            'username', 'email', 'password', 'password_confirm',
+            'username', 'email', 'password',
             'first_name', 'last_name', 'role', 'phone_number',
         ]
 
     def validate(self, attrs):
-        if attrs.get('password') != attrs.get('password_confirm'):
+        if 'password_confirm' in attrs and attrs.get('password') != attrs.get('password_confirm'):
             raise serializers.ValidationError({'password_confirm': 'Passwords do not match.'})
         return attrs
 
     def create(self, validated_data):
-        validated_data.pop('password_confirm', None)
         password = validated_data.pop('password')
         user = User(**validated_data)
         user.set_password(password)
@@ -121,3 +118,4 @@ class AdminUserUpdateSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+

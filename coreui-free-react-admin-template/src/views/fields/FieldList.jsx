@@ -238,7 +238,7 @@ const FieldList = () => {
               <div className="mb-3"><Sprout size={48} color="#a5d6a7" /></div>
               <h5 className="mt-2" style={{ color: '#2e7d32' }}>No fields yet</h5>
               <p className="text-muted small">
-                {isAdmin ? 'Create your first field to get started.' : 'No fields assigned to you yet.'}
+                {isAdmin ? 'Create your first field to get started.' : 'No fields assigned to you yet. Contact your administrator to get fields assigned.'}
               </p>
               {isAdmin && (
                 <CButton onClick={openCreate}
@@ -248,6 +248,7 @@ const FieldList = () => {
                   <Plus size={16} /> Add First Field
                 </CButton>
               )}
+
             </div>
           ) : (
             <div className="table-responsive">
@@ -305,10 +306,12 @@ const FieldList = () => {
                                   size="sm" variant="ghost"
                                   style={{ color: '#c62828' }}
                                   onClick={() => setDeleteConfirm(field)}
+                                  disabled={!isAdmin}
                                 >
                                   Delete
                                 </CButton>
                               )}
+
                             </div>
                           </CTableDataCell>
                         </CTableRow>

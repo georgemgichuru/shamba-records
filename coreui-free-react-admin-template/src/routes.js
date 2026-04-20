@@ -22,7 +22,8 @@ const UserProfile = React.lazy(() => import('./views/profile/UserProfile'))
 export const routes = [
   { path: '/',        exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard',       element: Dashboard },
-  { path: '/fields',    name: 'Fields',          element: FieldList },
+{ path: '/fields',    name: 'Fields',          element: FieldList, roles: ['admin', 'agent'] },
+
   { path: '/profile',   name: 'My Profile',      element: UserProfile },
   { path: '/users',     name: 'User Management', element: UserManagement, roles: ['admin'] },
 ]

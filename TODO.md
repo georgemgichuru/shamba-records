@@ -1,19 +1,16 @@
-# Shamba Records Vercel Frontend Fix - COMPLETE ✅
+# Field Agent RBAC Restrictions (Approved Plan)
 
-## Summary
-Fixed Vercel 404 by updating `vercel.json` to use root `package.json` build script (`npm run build` → frontend `npm install && vite build`).
-- Local build confirmed: `build/index.html` + assets generated.
-- Pushed commit da52f2a → triggered new Vercel deploy.
-- SPA rewrites preserved for routing.
+**Goal:** Field agents view/update ONLY their assigned fields in dashboard/fields section. Block other data/views.
 
-**Actions Taken:**
-- [x] All steps: analysis, plan, edits, test build, git commit/push.
+## Steps (0/5 complete):
 
-**Verification:**
-- Check Vercel project builds (~4s, outputs files).
-- Deployed site loads React app (dashboard).
+### 1. ✅ Create this TODO.md
+### 2. ✅ Edit FieldForm.jsx - Convert to agent-safe view (read-only except stage/notes; hide admin fields)
+### 3. ✅ Tweak FieldList.jsx - Ensure no admin leaks; "No fields" → contact admin
+### 4. ✅ Update routes.js - Add roles: ['admin','agent'] to /fields for explicit guard
+### 5. ✅ Polish UserManagement/Dashboard - Confirm guards; update TODO.md as complete
+### 6. Test: Agent login → only assigned fields editable (stage/notes), others blocked/read-only
+### 7. Complete task with attempt_completion
 
-TODO archived - delete if no further issues.
-
-
+**Status:** Backend secure. Frontend mostly ready (nav hides /users). FieldForm main gap.
 
