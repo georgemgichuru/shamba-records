@@ -1,0 +1,268 @@
+// SmartSeason custom SCSS overrides
+// Agricultural green-themed design system
+
+@use "@coreui/coreui/scss/coreui" as * with (
+  $enable-deprecation-messages: false,
+  $primary: #2e7d32,
+  $success: #43a047,
+  $info: #0288d1,
+  $warning: #f9a825,
+  $danger: #c62828,
+);
+@use "@coreui/chartjs/scss/coreui-chartjs";
+@use "vendors/simplebar";
+
+// ─── Typography ─────────────────────────────────────────────────────────────
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --ss-green-dark: #1b5e20;
+  --ss-green: #2e7d32;
+  --ss-green-mid: #388e3c;
+  --ss-green-light: #a5d6a7;
+  --ss-harvest: #f9a825;
+  --ss-soil: #4e342e;
+  --ss-sky: #e1f5fe;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background-color: #f4f6f4;
+  font-family: 'Inter', sans-serif;
+}
+
+// ─── Sidebar ────────────────────────────────────────────────────────────────
+.sidebar {
+  --cui-sidebar-bg: #1b5e20 !important;
+  --cui-sidebar-color: rgba(255,255,255,0.85) !important;
+  --cui-sidebar-nav-link-color: rgba(255,255,255,0.75) !important;
+  --cui-sidebar-nav-link-active-color: #fff !important;
+  --cui-sidebar-nav-link-active-bg: rgba(255,255,255,0.15) !important;
+  --cui-sidebar-nav-link-hover-bg: rgba(255,255,255,0.1) !important;
+  --cui-sidebar-nav-title-color: rgba(255,255,255,0.45) !important;
+  --cui-sidebar-brand-color: #fff !important;
+  background: linear-gradient(180deg, #1b5e20 0%, #2e7d32 100%) !important;
+}
+
+.sidebar-brand {
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+}
+
+// ─── Header ─────────────────────────────────────────────────────────────────
+.header {
+  background: #fff;
+  border-bottom: 1px solid #e8f5e9 !important;
+}
+
+// ─── Wrapper ────────────────────────────────────────────────────────────────
+.wrapper {
+  width: 100%;
+  padding-inline: var(--cui-sidebar-occupy-start, 0) var(--cui-sidebar-occupy-end, 0);
+  will-change: auto;
+  @include transition(padding .15s);
+}
+
+.header > .container-fluid,
+.sidebar-header {
+  min-height: calc(4rem + 1px);
+}
+
+.sidebar-brand-full { margin-left: 3px; }
+
+.sidebar-header {
+  .nav-underline-border {
+    --cui-nav-underline-border-link-padding-x: 1rem;
+    --cui-nav-underline-border-gap: 0;
+  }
+  .nav-link {
+    display: flex;
+    align-items: center;
+    min-height: calc(4rem + 1px);
+  }
+}
+
+.sidebar-toggler { margin-inline-start: auto; }
+.sidebar-narrow,
+.sidebar-narrow-unfoldable:not(:hover) {
+  .sidebar-toggler { margin-inline-end: auto; }
+}
+
+.header > .container-fluid + .container-fluid { min-height: 3rem; }
+.footer {
+  min-height: calc(3rem + 1px);
+  border-top: 1px solid #e8f5e9;
+}
+
+// ─── Cards ──────────────────────────────────────────────────────────────────
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: box-shadow 0.2s ease;
+  &:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+}
+
+.card-header {
+  background: #fff;
+  border-bottom: 1px solid #f1f8f1;
+  font-weight: 600;
+  border-radius: 12px 12px 0 0 !important;
+}
+
+// ─── Status badges ───────────────────────────────────────────────────────────
+.ss-badge-active {
+  background: #e8f5e9 !important;
+  color: #2e7d32 !important;
+  border: 1px solid #a5d6a7;
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.ss-badge-risk {
+  background: #ffebee !important;
+  color: #c62828 !important;
+  border: 1px solid #ef9a9a;
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.ss-badge-completed {
+  background: #e3f2fd !important;
+  color: #0277bd !important;
+  border: 1px solid #90caf9;
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+// ─── Stage Pills ─────────────────────────────────────────────────────────────
+.stage-planted   { background: #fff3e0 !important; color: #e65100 !important; border-radius: 12px; padding: 2px 10px; font-size: 0.8rem; font-weight: 500; display: inline-flex; align-items: center; gap: 5px; }
+.stage-growing   { background: #e8f5e9 !important; color: #2e7d32 !important; border-radius: 12px; padding: 2px 10px; font-size: 0.8rem; font-weight: 500; display: inline-flex; align-items: center; gap: 5px; }
+.stage-flowering { background: #fce4ec !important; color: #880e4f !important; border-radius: 12px; padding: 2px 10px; font-size: 0.8rem; font-weight: 500; display: inline-flex; align-items: center; gap: 5px; }
+.stage-ready     { background: #e3f2fd !important; color: #0277bd !important; border-radius: 12px; padding: 2px 10px; font-size: 0.8rem; font-weight: 500; display: inline-flex; align-items: center; gap: 5px; }
+.stage-harvested { background: #f3e5f5 !important; color: #6a1b9a !important; border-radius: 12px; padding: 2px 10px; font-size: 0.8rem; font-weight: 500; display: inline-flex; align-items: center; gap: 5px; }
+
+// ─── Stat cards ──────────────────────────────────────────────────────────────
+.ss-stat-card {
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  border: none;
+  min-height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .ss-stat-icon {
+    font-size: 2.5rem;
+    opacity: 0.3;
+    position: absolute;
+    right: 16px;
+    top: 16px;
+  }
+  .ss-stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .ss-stat-label {
+    font-size: 0.78rem;
+    opacity: 0.85;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-top: 0.4rem;
+    font-weight: 500;
+  }
+}
+
+// ─── Auth pages ───────────────────────────────────────────────────────────────
+.ss-auth-page {
+  background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 60%, #43a047 100%);
+  min-height: 100vh;
+}
+
+.ss-auth-card {
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+
+.ss-auth-brand {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #1b5e20;
+  letter-spacing: -0.5px;
+  span { color: var(--ss-harvest); }
+}
+
+.ss-auth-right {
+  background: linear-gradient(160deg, #2e7d32, #1b5e20);
+  border-radius: 0 20px 20px 0;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+// ─── Table ───────────────────────────────────────────────────────────────────
+.table > thead > tr > th {
+  background: #f8fdf8;
+  color: #1b5e20;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  font-weight: 700;
+  border-bottom: 2px solid #e8f5e9;
+}
+
+.table > tbody > tr:hover {
+  background-color: #f8fdf8;
+}
+
+// ─── Buttons ────────────────────────────────────────────────────────────────
+.btn-primary {
+  background: var(--ss-green) !important;
+  border-color: var(--ss-green) !important;
+  &:hover { background: var(--ss-green-dark) !important; }
+}
+
+.btn-success {
+  background: #43a047 !important;
+  border-color: #43a047 !important;
+  &:hover { background: #388e3c !important; }
+}
+
+// ─── Progress bars ───────────────────────────────────────────────────────────
+.progress-bar { border-radius: 10px; }
+
+// ─── Dark mode ────────────────────────────────────────────────────────────────
+@include color-mode(dark) {
+  body { background-color: #121f12; }
+  .card { background: #1e2d1e; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+  .card-header { background: #1e2d1e; border-color: #2a3d2a; }
+  .table > thead > tr > th { background: #1e2d1e; }
+  .footer { --cui-footer-bg: var(--cui-body-bg); }
+  .header { background: #1e2d1e; }
+  .ss-auth-card { background: #1e2d1e; }
+  .ss-auth-brand { color: #a5d6a7; }
+  body { color: #e0e0e0; }
+}
