@@ -1,6 +1,7 @@
 # SmartSeason Field Management
 
 Hey! This is my submission for the Shamba Records Software Internship. It's a field management dashboard built with Django and React, designed to help track crops, manage field agents, and automatically flag fields that might be falling behind schedule.
+
 Find the frontend deployed on vercel at - https://shamba-records-xgbk.vercel.app/ 
 Find the backend deployed on render at - https://shamba-records-c7mi.onrender.com/
 
@@ -38,3 +39,5 @@ npm run dev
 
 ## What's Next?
 If I had more time, I think it would be really cool to add some machine learning like predicting exact harvest dates based on the crop type and size, or auto-detecting anomalies in growth time from historical data.
+
+Also the UI/UX can be improve, I started out with a react template from github to speed up the process. But this also shows that I can work with existing code and modify it.
